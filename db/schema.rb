@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131219215140) do
+ActiveRecord::Schema.define(version: 20140114000659) do
+
+  create_table "analytics_records", force: true do |t|
+    t.string   "name"
+    t.string   "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "analytics_records", ["name", "value"], name: "index_analytics_records_on_name_and_value", unique: true
 
   create_table "categories", force: true do |t|
     t.string   "category"

@@ -42,6 +42,10 @@
       <div class='notice'>  
         <%= flash[:notice] %>
       </div>
+      <% AnalyticsRecord.all.each do |record| %>
+        <%= record.name %>
+        <%= record.value %>
+      <% end %>
       <%= yield %>
     </div>
     <div id='footer'>
