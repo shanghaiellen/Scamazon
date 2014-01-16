@@ -7,9 +7,9 @@ class ApplicationController < ActionController::Base
 
   private
   def process_analytics
-    unless cookies[:ra]
+    unless cookies[:repeat_user]
       AnalyticsRecord.event(:new_visitor, request.remote_ip)
-      cookies[:ra] = {value: true, expires: Time.now + 1.day}
+      cookies[:repeat_user] = {value: true, expires: Time.now + 1.year }
     end
   end
 
