@@ -14,35 +14,51 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
-
-   $(document).ready(function(){
-    var keys     = [];
-    var konami  = '38,38,40,40,37,39,37,39,66,65';
-
-   $(document)
-        .keydown(
-            function(e) {
-                keys.push( e.keyCode );
-                if ( keys.toString().indexOf( konami ) >= 0 ){
- 
-                    var k = window.setInterval(function(){
-
-                      if ($("#konami").is(":visible")) {
-                        $("#konami").hide();
-                      } else {
-                        $("#konami").show();
-                      }
-                    }, 250);
-
-                  setTimeout(function(){
-                    window.clearInterval(k)
-                  }, 4000);
-                    keys = [];
-                }
-            }
-        );
+(function(){
+  document.addEventListener("DOMContentLoaded", function(e){
+    //valuesArray is an array which includes the number values for each element
+    var drawPie = function(this_canvas, valuesArray){
+      var x = this_canvas.width/2;
+      var y = this_canvas.height/2;
+      
+      //sets the radius equal to the shorter of half of the height or width
+      var radius = (function(){
+        if(x<y){
+          return x;
+        }
+        return y;
       });
 
+      //adds together all of the values in the valuesArray and returns their sum
+      var total = (function(){
+        var subtotal = 0;
+        for(i = 0; i < valuesArray.length; i++){
+          subtotal += valuesArray[i];
+        }
+        return subtotal;
+      });
+
+      
+      var percentageArray = (function(){
+        for(i = 0; i < valuesArray.length; i++){
+          valuesArray[i] = valuesArray[i] / total;
+        }
+        return valuesArray;
+      });
+
+      var endPointArray = (function(){
+        for(i = 0; i < valuesArray.length; i++){
+          valuesArray[i] = valuesArray[i] * (2 * Math.PI);
+        }
+        return valuesArray;
+      });
+
+      var drawSlice = function(length, startDeg){
+
+      }
+    }
+  });
+});
 
 
 
