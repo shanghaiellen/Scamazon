@@ -1,113 +1,113 @@
-require 'spec_helper'
+# require 'spec_helper'
 
-describe ProductsController do
+# describe ProductsController do
 
-  let(:product1) { Product.create!(name: "apples", 
-                                   description: "delicious",
-                                   price: "100") }
-  let(:product2) { Product.create!(name: "bananas", 
-                                   description: "yummy",
-                                   price: "200") }
+#   let(:product1) { Product.create!(name: "apples", 
+#                                    description: "delicious",
+#                                    price: "100") }
+#   let(:product2) { Product.create!(name: "bananas", 
+#                                    description: "yummy",
+#                                    price: "200") }
 
-  describe "GET 'index'" do
+#   describe "GET 'index'" do
 
-    it "is successful" do
-      get :index
-      expect(response).to be_successful
-    end
+#     it "is successful" do
+#       get :index
+#       expect(response).to be_successful
+#     end
 
-    it "renders the index template" do
-      get :index
-      expect(response).to render_template("index")
-    end
+#     it "renders the index template" do
+#       get :index
+#       expect(response).to render_template("index")
+#     end
 
-    it "loads all the products" do
+#     it "loads all the products" do
 
-        get :index
-        expect(assigns(:products)).to match_array([product1, product2])
-    end
+#         get :index
+#         expect(assigns(:products)).to match_array([product1, product2])
+#     end
   
-  end
+#   end
 
-  describe "POST 'index'" do
+#   describe "POST 'index'" do
     
-    it "is successful" do
-      post :index
-      expect(response).to be_successful
-    end
+#     it "is successful" do
+#       post :index
+#       expect(response).to be_successful
+#     end
   
-  end
+#   end
 
-  describe "create new page" do
+#   describe "create new page" do
 
-    it "is successful" do
-      get :new
-      expect(response).to be_successful
-    end
+#     it "is successful" do
+#       get :new
+#       expect(response).to be_successful
+#     end
 
-    it "should create new product" do
-      post 'create', {product: {name: "carrot",
-                                description: "crunchy",
-                                price: 100}}
-      expect(response).to be_redirect
-    end
+#     it "should create new product" do
+#       post 'create', {product: {name: "carrot",
+#                                 description: "crunchy",
+#                                 price: 100}}
+#       expect(response).to be_redirect
+#     end
 
-  it "should create new product" do
-      expect {post 'create', {product: {name: nil,
-                                description: "crunchy",
-                                price: 100}}}.not_to change(Product, :count).by(1)
-    end
+#   it "should create new product" do
+#       expect {post 'create', {product: {name: nil,
+#                                 description: "crunchy",
+#                                 price: 100}}}.not_to change(Product, :count).by(1)
+#     end
 
   
-  end
+#   end
 
 
 
-  describe "show page" do
-    render_views 
+#   describe "show page" do
+#     render_views 
 
-    let(:request) { get :show, id: product1.id }
+#     let(:request) { get :show, id: product1.id }
     
-    it "is successful" do
-      request
-      expect(response).to be_successful
-    end
+#     it "is successful" do
+#       request
+#       expect(response).to be_successful
+#     end
 
-    it "shows the name of the product" do
-      request
-      expect(product1.name).to be_present
-    end
+#     it "shows the name of the product" do
+#       request
+#       expect(product1.name).to be_present
+#     end
 
-    it "shows the description of the product" do
-      request
-      expect(product1.description).to be_present
-    end
+#     it "shows the description of the product" do
+#       request
+#       expect(product1.description).to be_present
+#     end
 
-    it "shows the price of the product" do
-      request
-      expect(product1.price).to be_present
-    end
+#     it "shows the price of the product" do
+#       request
+#       expect(product1.price).to be_present
+#     end
 
-    it "shows that a product is retired" do
-      product1.retired = true
-      product1.save
-      request
-      expect(response.body).to include("This Product Is No Longer Available.")
-    end
+#     it "shows that a product is retired" do
+#       product1.retired = true
+#       product1.save
+#       request
+#       expect(response.body).to include("This Product Is No Longer Available.")
+#     end
 
-    it "doesn't show that a product is retired if it is not" do
-      request
-      expect(response.body).to_not include("This Product Is No Longer Available.")
-    end
+#     it "doesn't show that a product is retired if it is not" do
+#       request
+#       expect(response.body).to_not include("This Product Is No Longer Available.")
+#     end
 
-    it "has an 'add to cart' button if product is not retired" do
-      request
-      expect(response.body).to include("Cart")
-    end
+#     it "has an 'add to cart' button if product is not retired" do
+#       request
+#       expect(response.body).to include("Cart")
+#     end
     
-  end
+#   end
 
 
 
   
-end
+# end
