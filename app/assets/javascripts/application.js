@@ -17,9 +17,13 @@
 (function(){
   document.addEventListener("DOMContentLoaded", function(e){
     //valuesArray is an array which includes the number values for each element
-    var drawPie = function(this_canvas, valuesArray){
+    function drawPie(canvas_id, valuesArray){
+      var this_canvas = document.querySelector(canvas_id);
+      var context = this_canvas.getContext('2d');
+      // context.beginPath();
       var x = this_canvas.width/2;
       var y = this_canvas.height/2;
+      var colors = ['blue', 'red', 'green', 'orange', 'yellow', 'purple', 'pink'];
       
       //sets the radius equal to the shorter of half of the height or width
       var radius = (function(){
@@ -27,38 +31,51 @@
           return x;
         }
         return y;
-      });
+      })();
 
       //adds together all of the values in the valuesArray and returns their sum
       var total = (function(){
         var subtotal = 0;
-        for(i = 0; i < valuesArray.length; i++){
+        for(var i = 0; i < valuesArray.length; i++){
           subtotal += valuesArray[i];
         }
         return subtotal;
-      });
+      })();
 
-      
-      var percentageArray = (function(){
-        for(i = 0; i < valuesArray.length; i++){
-          valuesArray[i] = valuesArray[i] / total;
-        }
-        return valuesArray;
-      });
-
+      //divides the values array by the 
       var endPointArray = (function(){
-        for(i = 0; i < valuesArray.length; i++){
-          valuesArray[i] = valuesArray[i] * (2 * Math.PI);
+        for(var i = 0; i < valuesArray.length; i++){
+          var percentage = valuesArray[i] / total;
+          var difference = percentage * (2 * Math.PI);
+          if(i===0){
+            valuesArray[i] = difference;
+          }else{
+            valuesArray[i] = difference + valuesArray[i - 1];
+          }
         }
         return valuesArray;
-      });
+      })();
 
-      var drawSlice = function(length, startDeg){
+      function drawSlice(startDeg, endDeg, color){
+        context.beginPath();
+        context.moveTo(x,y);
+        context.arc(x, y, radius, startDeg, endDeg, false);
+        context.fillStyle = color;
+        context.fill();
+        console.log(startDeg, endDeg, color);
+      }
 
+      for(var i = 0; i < endPointArray.length; i++){
+        if (i===0){
+          drawSlice(0, endPointArray[i], colors[i]);
+        } else{
+          drawSlice(endPointArray[i-1], endPointArray[i], colors[i]);
+        }
       }
     }
+    drawPie('#pageviews', [25, 25, 50]);
   });
-});
+})();
 
 
 
