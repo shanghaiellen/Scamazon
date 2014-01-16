@@ -8,8 +8,20 @@ class ApplicationController < ActionController::Base
   private
   def process_analytics
     unless cookies[:repeat_user]
-      AnalyticsRecord.event(:new_visitor, request.remote_ip)
-      cookies[:repeat_user] = {value: true, expires: Time.now + 1.year }
+      if current_user
+        if current_user.cookie_id
+          cookies[:user_id] = current_user.cookie_id
+        else
+          this_id = Time.now + rand(1000)
+          cookies[:user_id] = this_id
+          current_user.cookie_id = this_id
+          current_user.save
+        end
+        cookies[:repeat_user] = {value: true, expires: Time.now + 1.year }
+      else
+        AnalyticsRecord.event(:new_visitor, request.remote_ip)
+        cookies[:repeat_user] = {value: true, expires: Time.now + 1.year }
+      end
     end
   end
 
