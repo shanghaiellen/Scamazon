@@ -17,13 +17,14 @@
 (function(){
   document.addEventListener("DOMContentLoaded", function(e){
     //valuesArray is an array which includes the number values for each element
+
+    var colors = ['blue', 'red', 'green', 'orange', 'yellow', 'purple', 'pink'];
     function drawPie(canvas_id, valuesArray){
       var this_canvas = document.querySelector(canvas_id);
       var context = this_canvas.getContext('2d');
       // context.beginPath();
       var x = this_canvas.width/2;
       var y = this_canvas.height/2;
-      var colors = ['blue', 'red', 'green', 'orange', 'yellow', 'purple', 'pink'];
       
       //sets the radius equal to the shorter of half of the height or width
       var radius = (function(){
@@ -62,7 +63,6 @@
         context.arc(x, y, radius, startDeg, endDeg, false);
         context.fillStyle = color;
         context.fill();
-        console.log(startDeg, endDeg, color);
       }
 
       for(var i = 0; i < endPointArray.length; i++){
@@ -73,7 +73,49 @@
         }
       }
     }
-    drawPie('#pageviews', [25, 25, 50]);
+
+    function drawBar(canvas_id, valuesArray, multiplier){
+      var this_canvas = document.querySelector(canvas_id);
+      var context = this_canvas.getContext('2d');
+      var width = this_canvas.width / (valuesArray.length * 2);
+      var height = this_canvas.height;
+
+      var total = (function(){
+        var subtotal = 0;
+        for(var i = 0; i < valuesArray.length; i++){
+          subtotal += valuesArray[i];
+        }
+        return subtotal;
+      })();
+
+      var percentageArray = (function(){
+        for(var i = 0; i < valuesArray.length; i++){
+          valuesArray[i] = valuesArray[i] / total;
+        }
+        return valuesArray;
+      })();
+
+      function buildABar(x, y, value, color){
+        context.beginPath();
+        context.rect(x, y, width, value*multiplier);
+        context.fillStyle = color;
+        context.fill();
+        console.log(color);
+      }
+
+      for(var i = 0; i < percentageArray.length; i++){
+        if (i===0){
+          buildABar(0, height - multiplier*percentageArray[i], percentageArray[i], colors[i]);
+        } else{
+          buildABar(i*2*width+1, height - multiplier*percentageArray[i], percentageArray[i], colors[i]);
+        }
+      }
+
+
+    }
+    drawPie('#pageviews', [25, 25, 50, 45, 6]);
+    drawBar('#user_agents', [25, 25, 50, 75], 200, 25);
+
   });
 })();
 
