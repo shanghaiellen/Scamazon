@@ -31,7 +31,7 @@ gem 'jbuilder', '~> 1.2'
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.14'
-  gem 'sqlite3'
+  gem 'pg'
   gem 'guard-rspec', require: false
 end
 
