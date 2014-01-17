@@ -1,5 +1,5 @@
 class StaticPagesController < ApplicationController
-  before_action: add_tally
+  before_action :add_tally
 
   def faq
   end

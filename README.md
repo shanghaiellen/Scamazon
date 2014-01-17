@@ -1,1 +1,1 @@
-Welcome to [scamazon](http://scamazon.herokuapp.com/ "Scamazon")
+Welcome to [scamazon](http://scamazon-analytics.herokuapp.com/ "Scamazon")
