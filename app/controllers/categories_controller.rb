@@ -1,5 +1,6 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: [:show, :edit, :update, :destroy]
+  before_action :add_tally
 
   def new
     if current_user.present?
@@ -7,6 +8,7 @@ class CategoriesController < ApplicationController
     else
       redirect_to categories_path, notice: "Please sign in to create a category"
     end
+    
   end
 
   def index
@@ -45,6 +47,10 @@ class CategoriesController < ApplicationController
   end
 
 private
+  def add_tally
+    @tally.other_views += 1
+    @tally.save
+  end
 
   def set_category
     @category=Category.find(params[:id])

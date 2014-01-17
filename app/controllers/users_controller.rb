@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-
+  before_action :add_tally, except: [:stats]
+  before_action :add_stat_tally, only: [:stats]
 
   def index
     @user = User.all
@@ -50,6 +51,16 @@ class UsersController < ApplicationController
 
 
 private
+  def add_tally
+    @tally.user_views += 1
+    @tally.save
+  end
+
+  def add_stat_tally
+    @tally.stat_views += 1
+    @tally.save
+  end
+
   def set_user
     @user = current_user
   end

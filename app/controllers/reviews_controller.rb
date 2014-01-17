@@ -1,5 +1,6 @@
 class ReviewsController < ApplicationController
   before_action :check_login
+  before_action :add_tally
 
   def create
     @product = Product.find(params[:review][:product_id])
@@ -43,6 +44,11 @@ class ReviewsController < ApplicationController
   private
   def set_review
     @review = Review.find(params[:id])
+  end
+
+  def add_tally
+    @tally.other_views += 1
+    @tally.save
   end
 
   def review_params

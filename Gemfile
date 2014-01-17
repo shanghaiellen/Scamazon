@@ -45,6 +45,8 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+gem 'agent_orange'
+
 # Use ActiveModel has_secure_password
 gem 'bcrypt-ruby'
 

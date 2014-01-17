@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   before_action :find_pending_order, only: [:add, :remove_product, :cart, :fulfillment, :check_order_quantities, :add_one_product, :subtract_one_product]
+  before_action :add_tally
 
   def create
     @order = Order.new(order_params)
@@ -106,6 +107,11 @@ class OrdersController < ApplicationController
       end
       @order.save
     end
+  end
+
+  def add_tally
+    @tally.order_views += 1
+    @tally.save
   end
 
   def find_order

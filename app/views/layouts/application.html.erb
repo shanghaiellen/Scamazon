@@ -47,9 +47,9 @@
       <% AnalyticsRecord.all.each do |record| %>
         <%= record.name %>
         <%= record.value %>
-      <% end %>
-      <%= AnalyticsRecord.all.length %>
-      <%= cookies[:user_id] %>
+      <% end %><br>
+      <%= @tally.inspect %>
+      <% ua = AgentOrange::UserAgent.new(request.user_agent)%>
       <%= yield %>
     </div>
     <div id='footer'>

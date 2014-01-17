@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy, :retire, :unretire]
+  before_action :add_tally
 
   def index
     @products = Product.filter(params[:category_ids],params[:seller_ids],params[:search_product])
@@ -77,6 +78,10 @@ class ProductsController < ApplicationController
   end
 
 private
+  def add_tally
+    @tally.product_views += 1
+    @tally.save
+  end
 
   def set_product
     @product=Product.find(params[:id])

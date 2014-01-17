@@ -1,4 +1,6 @@
 class StaticPagesController < ApplicationController
+  before_action: add_tally
+
   def faq
   end
 
@@ -6,5 +8,11 @@ class StaticPagesController < ApplicationController
   end
 
   def return_policy
+  end
+
+  private
+  def add_tally
+    @tally.product_views += 1
+    @tally.save
   end
 end

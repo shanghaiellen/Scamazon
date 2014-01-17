@@ -1,5 +1,6 @@
 class PurchasesController < ApplicationController
   before_action :check_billing, :only =>[:create]
+  before_action :add_tally
 
   def create
     @purchase = Purchase.new(purchase_params)
@@ -63,6 +64,11 @@ class PurchasesController < ApplicationController
       quantity = OrderItem.where(product_id: product.id, order_id: @order.id)[0].quantity
       Product.find(product.id).update(stock: (product.stock - quantity))
     end
+  end
+
+  def add_tally
+    @tally.order_views += 1
+    @tally.save
   end
 
   def purchase_params

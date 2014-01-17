@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140116233913) do
+ActiveRecord::Schema.define(version: 20140117194518) do
 
   create_table "analytics_records", force: true do |t|
     t.string   "name"
@@ -108,21 +108,21 @@ ActiveRecord::Schema.define(version: 20140116233913) do
     t.integer  "user_id"
   end
 
-  create_table "tallys", force: true do |t|
-    t.integer "unique"
-    t.integer "mobile"
-    t.integer "firefox"
-    t.integer "chrome"
-    t.integer "internet_explorer"
-    t.integer "safari"
-    t.integer "other_browser"
-    t.integer "user_views"
-    t.integer "product_views"
-    t.integer "order_views"
-    t.integer "static_views"
-    t.integer "stat_views"
-    t.integer "other_views"
-    t.integer "total_views"
+  create_table "tallies", force: true do |t|
+    t.integer "unique",            default: 0
+    t.integer "mobile",            default: 0
+    t.integer "firefox",           default: 0
+    t.integer "chrome",            default: 0
+    t.integer "internet_explorer", default: 0
+    t.integer "safari",            default: 0
+    t.integer "other_browser",     default: 0
+    t.integer "user_views",        default: 0
+    t.integer "product_views",     default: 0
+    t.integer "order_views",       default: 0
+    t.integer "static_views",      default: 0
+    t.integer "stat_views",        default: 0
+    t.integer "other_views",       default: 0
+    t.integer "total_views",       default: 0
   end
 
   create_table "users", force: true do |t|
