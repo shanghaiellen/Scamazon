@@ -49,6 +49,7 @@
         <%= record.value %>
       <% end %>
       <%= AnalyticsRecord.all.length %>
+      <%= cookies[:user_id] %>
       <%= yield %>
     </div>
     <div id='footer'>
